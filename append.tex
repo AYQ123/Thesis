@@ -1,0 +1,684 @@
+\appendices
+%
+% If you only have one appendix, you should change the above to:
+%\appendix
+%
+
+\chapter{Sage implementations of Zig-Zag and Replacement Products}
+\section{Tools for working with Enumerations and the Zig-Zag and Replacement Products}
+\label{app:enum}
+\begin{sageblock}
+
+# Take a given digraph G and label the edges using the 
+# enumeration provided
+def enumerate_graph(G,enum):
+     for source_vert in enum.iterkeys():
+         for term_vert in enum[source_vert].iterkeys():
+             G.set_edge_label(source_vert,term_vert,\
+             enum[source_vert][term_vert])
+# Generate a random enumeration from a given digraph G
+def random_enumeration(G):
+    import random
+
+    enum = dict()
+
+    for v in G.vertex_iterator():
+        nhbd = G[v]
+        deg = len(nhbd)
+        random.shuffle(nhbd)
+        enum[v] = dict(zip(range(0,deg), nhbd))
+
+    return enum
+
+# Compute the inverse of a one-to-one dictionary
+def inverse_dict(d):
+
+    return dict( [ [v,k] for k,v in d.iteritems()])
+
+# Starting with an enumeration and an initial edge, 
+# compute the unique parity circuit
+def parity_circuit(enum, init_edge):
+    
+    inv_enum = dict([[v, inverse_dict(d)] for v,d \
+    in enum.iteritems()])
+    
+    init_vert = init_edge[0]
+    next_vert = init_edge[1]
+    init_enum = inv_enum[init_vert][next_vert]
+
+    circ = [init_vert, next_vert]
+    cur_vert = init_vert
+
+
+    out_enum = inv_enum[init_edge[0]][init_edge[1]]
+    in_enum = inv_enum[next_vert][cur_vert]
+    out_enum = (in_enum + 2)%4
+    cur_vert = next_vert
+
+    
+    while ( (cur_vert, out_enum) != (init_vert, init_enum) ):
+        next_vert = enum[cur_vert][out_enum]
+        circ.append(next_vert)
+        in_enum = inv_enum[next_vert][cur_vert]
+        out_enum = (in_enum + 2)%4
+        cur_vert = next_vert
+        
+    return circ[:-1]
+#Given two digraphs G and H with enumeration of G  and return the
+# zig-zag product GzzH
+def zig_zag(G,H, enum):
+    ZZ = DiGraph()
+    
+    inv_enum = dict([[v, inverse_dict(d)] for v,d \
+    in enum.iteritems()])
+     
+    for e in G.edge_iterator():
+        [ ZZ.add_edge((e[0],a) ,(e[1],b) ) \ 
+        for a in H[inv_enum[e[0]][e[1]]] \
+        for b in H[inv_enum[e[1]][e[0]] ] ]
+    return ZZ
+
+# Computes the replacement product of two
+# digraphs G and H with enumeration
+
+def replacement(G,H,enum):
+    RR = DiGraph()
+    inv_enum = dict([[v, inverse_dict(d)] for v,d\
+    in enum.iteritems()])
+
+    for v in G.vertex_iterator():
+        [ RR.add_edge((v,e[0]), (v,e[1])) for e in \
+        H.edge_iterator() ]
+    for e in G.edge_iterator():
+        RR.add_edge( (e[0], inv_enum[e[0]][e[1]] ),\
+        (e[1],inv_enum[e[1]][e[0]] )) 
+
+    return RR
+\end{sageblock}
+
+\section{Sage implementation of Generalized Graph Object with Zig-Zag Product}
+\label{app:nets}
+\begin{sageblock}
+#***********************************************************
+#  Copyright (C) 2008 David Monarres <dmmonarres@gmail.com>
+#
+#  Distributed under the terms of the GNU General Public \
+#  License version 2 (GPLv2)
+#
+#  This code is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied 
+#  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+#  See the GNU General Public License for more details.
+#
+#  The full text of the GPL is available at:
+#
+#                  http://www.gnu.org/licenses/
+#************************************************************
+
+from sage.graphs.graph import DiGraph
+from sage.sets.set import Set
+from mapping import Mapping
+from mapping import Involution
+
+class GeneralGraph(DiGraph):
+    r"""
+    General Graph: Is a tuple (E,V,s,t) where:
+        E is a set representing the "Edges" of the 
+        General Graph
+        V is a set representing the "Vertices" of the 
+        General Graph
+        s is a maping from E into V, where s(e) = v 
+        denotes that vertex
+        v is the source of edge e.
+        t is a mapping from E into V, where t(e) = v 
+        denotes that vertex c is the terminus of edge e.
+
+    Usage: G = GeneralGraph(E, s, t)
+    Input: Edge Set E, source mapping s, and a 
+    terminus mapping t
+    Output: A General Graph G
+    References: TODO
+    Examples:
+        sage: E = [ 'a','b','c','d']
+        sage: s = Mapping({ 'a':1, 'b':2, 'c':2, 'd':3 })
+        sage: t = Mapping({ 'a':2, 'b':1, 'c':3, 'd':2 })
+        sage: G = GeneralGraph(E, s,t)
+        sage: G
+    
+        A GeneralGraph on 3 verticies with edge set:
+            {'a', 'c', 'b', 'd'}
+        and source map:
+            [('a', 1), ('c', 2), ('b', 2), ('d', 3)]
+        and terminus map:
+            [('a', 2), ('c', 3), ('b', 1), ('d', 2)]
+        sage: G.edges()
+            [(1, 2, '(a:1)'), (2, 1, '(b:2)'), (2, 3,\
+            '(c:2)'), (3, 2, '(d:3)')]
+        sage: G.edge_set()
+            {'a', 'c', 'b', 'd'}
+    """
+
+    _s = None
+    _t = None
+    _E = None
+
+    def __init__(self, E, s,t):
+        self._E = E
+        self._s = s
+        self._t = t
+
+        DiGraph.__init__(self, multiedges=True, \
+        loops=True, weighted=False)
+        
+        for e in E:
+            DiGraph.add_vertex(self,s(e))
+        for e in E:
+            DiGraph.add_edge(self, s(e),t(e), \
+            '(%s:%s)'%(e,s(e)))
+    def edge_set(self):
+        r"""
+        The domain of the source and terminus mappings 
+        of the GeneralGraph
+
+        Usage: G.edge_set()
+        Input: None
+        Output: The edge set of the General Graph G
+        Examples:
+            sage: E = [ 'a','b','c','d']
+            sage: s = Mapping({ 'a':1, 'b':2, 'c':2, 'd':3 })
+            sage: t = Mapping({ 'a':2, 'b':1, 'c':3, 'd':2 })
+            sage: G = GeneralGraph(E, s,t)
+            sage: G.edge_set()
+                {'a', 'c', 'b', 'd'}
+        """
+        return Set(self._E)
+    def _repr_(self):
+        return \
+        "A GeneralGraph on %s verticies with edge set:\ 
+        "%self.num_verts() \
+        +'\n' + \
+             '\t' + "%s" %self.edge_set() + '\n' + \
+            "and source map:" + '\n' \
+            '\t' + "%s"%self._s.list_relation() + '\n' + \
+            "and terminus map:" + '\n' + \
+            '\t' + "%s"%self._t.list_relation()
+    def source_mapping(self):
+        r"""
+        Usage: G.source_mapping()
+        Input: None
+        Output: Returns the source mapping of the 
+        General Graph G
+        Examples: TODO
+        """
+        return self._s
+    def source(self, e):
+        r"""
+        Usage: G.source(e)
+        Input: An member of the edge set of 
+        the General Graph G
+        Output: A member of the vertex set of 
+        the General Graph G
+        where the edge is meant to originate from
+        Examples: TODO
+        """
+        return self._s(e)
+    def terminus_mapping(self):
+        r"""
+        Usage: G.terminus_mapping()
+        Input: None
+        Output: Returns the terminus mapping of 
+        the General Graph G
+        Examples: TODO
+        """
+        return self._t
+    def terminus(self, e):
+        r"""
+        Usage: G.terminus(e)
+        Input: An member of the edge set of 
+        the General Graph G
+        Output: A member of the vertex set of 
+        the General Graph G
+        where the edge is meant to terminate
+        Examples: TODO
+
+        """
+        return self._t(e)
+    def concatination(self, H):
+        r"""
+        Usage: K = G.concatination(H)
+        Input: A General Graph H
+        Output: A General Graph K that is the graph 
+        concatenation of
+        G with H
+        Examples: TODO
+        """
+        E = self.terminus_mapping().fiber_product(\
+        H.source_mapping())
+        s = Mapping( E, lambda x: self.source(x[0]))
+        t = Mapping( E, lambda x: H.terminus(x[1]))
+        return GeneralGraph(E, s,t)
+class InvolutiveGeneralGraph(GeneralGraph):
+    r"""
+    Involutive General Graph: Is a tuple (E,V,s,r) where:
+     E is the set of "edges" of the Involutive General Graph
+     V is the set of "verticies" of the Involutive General Graph
+     s is a mapping from E into V where s(e)=v denotes that the 
+     vertex v is the source of edge e
+     r is an involution from E into E where s(e) = e' denoted 
+     that edge e is "connected" to edge e'.
+    An Involutive General Graph is a General Graph with the
+    terminus mapping being given by t(e) = s(r(e))
+
+    Usage: G = InvolutiveGeneralGraph(E,s,r)
+    Input: Edge Set E, source Mapping s and 
+    Involution r
+    Output: A Involutive General Graph G
+    Refrences: TODO
+    Examples: TODO
+
+    """
+    _E = None
+    _s = None
+    _r = None
+    _t = None
+
+    def __init__(self, E, s,r):
+        t = s.composition(r)
+
+        self._E = E
+        self._s = s
+        self._r = r
+        self._t = t
+
+        GeneralGraph.__init__(self, E, s, t)
+        
+    def _repr_(self):
+        return GeneralGraph._repr_(self) + '\n' + \
+        'With involution:' + '\n'  + \
+        '\t' + '%s'%self._r.list_relation()
+
+    def involution_mapping(self):
+        r"""
+        Usage: r = G.involution_mapping()
+        Input: None
+        Output: An involution on the Edges of G 
+        that defines the connections 
+        between the edges of G
+        Examples: TODO
+        """
+        return self._r
+    def adjacent_edge(self,e):
+        r"""
+        Usage: G.adjacent_edge()
+        Input: An edge of the Involutive General Graph G
+        Output: An edge of the Involutive General Graph G, 
+        that is "adjacent" as defined by the 
+        involution mapping.
+        Examples: TODO
+
+        """
+        return self._r(e)
+    def zig(self, H):
+        r"""
+        The "zig" product of Involutive General Graph G with the 
+        Involutive General Graph H
+
+        Usage: K = G.zig(H)         
+        Input: An Involutive General Graph H
+        Output: An Involutive General Graph 
+        K that is the "zig" 
+        product of G with H
+        References: TODO
+        Examples: TODO
+
+        """
+        E = [ (v,e) for v in self.vertices()\
+        for e in H.edge_set() ]
+        s = Mapping(E, lambda x:\
+        (x[0],H.source(x[1])))
+        r = Involution(E, lambda x:\
+        ( x[0], H.adjacent_edge(x[1])))
+
+        return InvolutiveGeneralGraph(E,s,r)
+    def zag(self,H,f):
+        r"""
+        The "zag" product of the Involutive 
+        General Graph G with the 
+        Involutive General Graph H
+
+        Usage: K = G.zag(H)
+        Input: An Involutive General Graph H 
+        and mapping from the edge set 
+        of G onto the vertex set of H
+        Output: An Involutive General Graph K 
+        that is the "zag" product of 
+        G with H
+        References: TODO
+        Examples: TODO
+        """
+        E = self.edge_set()
+        
+        r = self.involution_mapping()
+        s = Mapping(E, lambda e: (self.source(e), f(e)))
+        return InvolutiveGeneralGraph(E, s,r)
+        
+    def zig_zag(self,H,f):
+        r"""
+        The "zig-zag" product of the Involutive 
+        General Graph G with the Involutive General Graph H
+
+        Usage: K = G.zig_zag(H,f)
+        Input: An Involutive General Graph H 
+        and a mapping from the edge set of G onto 
+        the vertex set of H
+        Output: An Involutive General Graph K 
+        that is the "zig-zag" product 
+        of G with H
+        References: TODO
+        Examples: TODO 
+        """
+
+        K_zig = self.zig(H)
+        K_zag = self.zag(H,f)
+
+
+        # Extract all mappings/Sets needed from zig
+        t_zig = K_zig.terminus_mapping()
+        s_zig_inv = (K_zig.source_mapping()).inverse()
+        r_zig = K_zig.involution_mapping()
+        E = K_zig.edge_set()
+
+        # Extract all mappings needed from zag
+        t_zag = K_zag.terminus_mapping()
+        s_zag_inv = (K_zag.source_mapping()).inverse()
+
+        s = K_zig.source_mapping()
+        r = Mapping(E, lambda e: \
+        r_zig(s_zig_inv(t_zag(s_zag_inv(t_zig(e))))))
+
+        return InvolutiveGeneralGraph(E,s,r)
+\end{sageblock}
+
+\section{General Set Function Object with Involution}
+\begin{sageblock}
+#****************************************************************
+#  Copyright (C) 2008 David Monarres <dmmonarres@gmail.com>
+#
+#  Distributed under the terms of the 
+#  GNU General Public License version 2 (GPLv2)
+#
+#  This code is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+#  See the GNU General Public License for more details.
+#
+#  The full text of the GPL is available at:
+#
+#  http://www.gnu.org/licenses/
+#****************************************************************
+from sage.structure.sage_object import SageObject
+from sage.sets.set import Set
+
+class Mapping(SageObject):
+        r"""
+        Basic finite function class
+        USAGE: Mapping(*args, **kwds)
+        INPUT:
+               args - can be either of the following:
+                      * A list of tuples or python dictinary
+                      * A finite Set (or list) and a function 
+                        to apply to the set 
+        OUTPUT: A callable function object
+
+        Examples:
+        You can define the relation as a list of tuples
+        
+               sage: f = Mapping( [ (1,2), (2,3), (4,5) ] )
+               sage: f(4)
+               5
+               sage: f(2)
+               3
+        Or as a python dictionary
+               
+               sage: f = Mapping( { 1:2, 4:5, 6:7} )
+               sage: f(6)
+               7
+               sage: f(4)
+               5
+        Or as a set and a function
+               sage: G = GF(11)
+               sage: H = GF(7)
+               sage: f = Mapping( Set(G), lambda x: H(x))
+               sage: f(10)
+               3
+               sage: f(10)
+               3
+               sage: f
+               A Mapping from {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10} 
+               to {0, 1, 2, 3, 4, 5, 6}
+        """
+        _f = None
+        _domain = None
+        _range = None
+        _d = dict()
+        def __init__(self, *args):
+                if args == None:
+                        pass
+                elif len(args) == 1:
+                        # Explicit definition of mapping
+                        self._d = dict(args[0])
+                        self._domain = Set( self._d.keys())
+                        self._range = Set( self._d.values())
+                elif len(args) == 2:
+                        self._domain = Set(args[0])
+                        self._f = args[1]
+                        self._d = dict(  [(x, self._f(x)) \
+                        for x in self._domain] )
+                        self._range = Set(self._d.values())
+                else:
+                        raise NotImplementedError,\
+                        "Mapping not implimented for \
+                        that combination of arguments"
+
+        def __call__(self,x):
+                try: 
+                        return self._d[x]
+                except KeyError:
+                        raise ValueError, \
+                        "%s not in the domain of the mapping"%x
+        def domain(self):
+                r"""
+                Domain of self mapping
+
+                Input: None
+                Output: The domain of the Mapping
+
+                Examples:
+                       sage: f = Mapping({ 1:2, 5:6, 8:10})
+                       sage: f.domain()
+                       {8, 1, 5}        
+                """
+                return self._domain
+
+        def range(self):
+                r"""
+                Range of self mapping
+
+                Input: None
+                Output: The range of the Mapping
+
+                Examples:
+                       sage: f = Mapping({ 1:2, 5:6, 8:10})
+                       sage: f.range()
+                       {2, 6, 10}
+                """
+                return self._range
+
+        def composition(self, g):
+                r"""
+                Compose two mappings
+
+                Input: A mapping g
+                Output: The composition mapping of self and g
+
+                Examples:
+                       sage: f = Mapping({ 1:2, 5:6, 8:10})
+                       sage: g = Mapping( {  1:1, 2:5 } )
+                       sage: h = f.composition(g)
+                       sage: h
+                       A Mapping from {1, 2} to {2, 6}
+                       sage: h(1)
+                       2
+                       sage: h(2)
+                       6
+                """
+                d = dict( [ (x, self(g(x)) ) for x in g.domain()])
+                return Mapping(d)
+
+        def pre_image(self,y):
+                r"""
+                The pre-image of an element
+                
+                Usage: m.preimage(y)
+                Input: An element in the range of the mapping
+                Output: The set x in the domain of f such that 
+                f(x) == y and the empty set if none exists
+                
+                Examples:
+                       sage: f = Mapping( {1:2, 2:2, 3:2})
+                       sage: f.pre_image(2)
+                       {1, 2, 3}
+                       sage: f.pre_image(1)
+                       {}
+                """
+                return Set( [ x for x in self.domain() if self(x) == y])
+
+        def inverse(self):
+                r"""
+                Computes the inverse of the mapping f if one exists, 
+                if not it raises a NotImplemented Error
+                
+                Usage: m.inverse()
+                Input: None
+                Output: 
+                A Mapping g such that g(f(x)) = x\
+                for all x in domain of f
+                Examples: TODO
+                """
+                d = dict()
+                for x in self.domain():
+                        if d.has_key(self(x)):
+                                raise NotImplementedError, \
+                                "Mapping is not one -to -one"
+                        else:
+                                d[self(x)] = x
+                return Mapping(d)
+
+        def fiber_product(self,g):
+                r"""
+                The fibre porduct of two mappings
+                INPUT: A Mapping g
+                OUTPUT: (c, c') such that self(c) == g(c')
+                REFRENCES: 
+                EXAMPLES:
+                  sage: f = Mapping( GF(9,'a'), lambda x: x^2 ) 
+                  sage: g = Mapping(Gf(9,'a'), lambda x: x^3)
+                  sage: f.fiber_product(g)
+                  {(a, 2*a + 2), (a + 2, a + 1), (0, 0), (2*a + 2, 2),\
+                   (2, 1), (2*a + 1, a + 1), (a + 1, 2),\
+                   (1, 1), (2*a, 2*a + 2)}
+                """
+                A = self.range().intersection(g.range())
+                ret = []
+                for x in A:
+                        [ ret.append( (y,z) ) for 
+                        y in self.pre_image(x)\ 
+                        for z in g.pre_image(x)]
+                return Set(ret)
+        def list_relation(self):
+                r"""
+                Returns the Mapping as a list of 
+                tuples describing the relation
+                Usage: m.list_relation()
+                Input: None
+                Output: List of tuples of the form 
+                [ (x, f(x) for x in f.domain()]
+                Examples: TODO
+                """
+                return [ (x, self(x)) for x in self.domain() ]
+        def _repr_(self):
+                return "A Mapping from 
+                % s to %s"%(self.domain(),self.range())
+        def _str_(self):
+                return "%s"%self.list_relation()
+class Involution(Mapping):
+    r"""
+    Involution: TODO
+    Usage: m = Involution(list)
+    Input: A list of one or two item lists that describe the disjoint 
+    transpositions of the involution m
+    Output: A callable mapping, m , such that m(m(x)) = x for all x in 
+    the domain of the mapping
+    Examples: 
+        sage: m = Involution( [  [1,2], [4,5], [3]] )
+        sage: m
+        A Mapping from {1, 2, 3, 4, 5} to {1, 2, 3, 4, 5}
+        sage: m(3)
+        3
+        sage: m(1)
+        2
+        sage: [ m(m(x)) for x in m.domain() ]
+        [1, 2, 3, 4, 5]
+    """
+    def __init__(self, *args):
+        if len(args) == 1:
+            d = dict()
+            # make sure that we are only dealing with transpositions
+            for x in args[0]:
+                if len(x) == 1:
+                    # fixed value
+                    if d.has_key(x[0]):
+                        raise TypeError,\
+                        "%s not disjoint from %s"%(x, [ x[0], d[x[0]]])
+                    else:
+                        d[x[0]] = x[0]
+                elif len(x) == 2:
+                    if x[0] == x[1]:
+                        # Handle special case where fixed transposition 
+                        # is given as [1,1]
+                        d[x[0]] = x[1]
+                    elif d.has_key(x[0]):
+                        # allow a repeated transposition
+                        if set(x) == set( [x[0], d[x[0]]]):
+                            pass
+                        else:
+                            raise TypeError, \
+                            "%s not disjoint from %s"%(x, [ x[0], d[x[0]]])
+                    elif d.has_key(x[1]):
+                        if set(x) == set( [x[1],d[x[1]]]):
+                            pass
+                        else:
+                            raise TypeError, \
+                            "%s not disjoint from %s"%(x, [ x[1], d[x[1]]])
+                    else:
+                        d[x[0]] = x[1]
+                        d[x[1]] = x[0]
+                else:
+                    raise TypeError, "%s is not a transposition"%x
+            Mapping.__init__(self, d)
+        elif len(args) == 2:
+            domain = args[0]
+            f = args[1]
+
+            for x in domain:
+                if (f(f(x)) != x):
+                    raise TypeError,\
+                    'f does not define an involution on the given domain'
+            Mapping.__init__(self, domain, f)
+        else: 
+            raise TypeError
+\end{sageblock}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "thesis"
+%%% End: 

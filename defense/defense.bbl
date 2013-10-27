@@ -1,0 +1,68 @@
+\begin{thebibliography}{10}
+
+\bibitem{Alon:2001xy}
+Noga Alon, Alexander Lubotzky, and Avi Wigderson.
+\newblock Semi-direct product in groups and zig-zag product in graphs:
+  connections and applications (extended abstract).
+\newblock In {\em 42nd {IEEE} {S}ymposium on {F}oundations of {C}omputer
+  {S}cience ({L}as {V}egas, {NV}, 2001)}, pages 630--637. IEEE Computer Soc.,
+  Los Alamitos, CA, 2001.
+
+\bibitem{MR1826251}
+Misha Gromov.
+\newblock Spaces and questions.
+\newblock {\em Geom. Funct. Anal.}, (Special Volume, Part I):118--161, 2000.
+\newblock GAFA 2000 (Tel Aviv, 1999).
+
+\bibitem{Harary:1966}
+Frank Harary, Robert~Z. Norman, and Dorwin Cartwright.
+\newblock {\em Structural Models: An Introduction to the Theorey of Directed
+  Graphs}.
+\newblock John Wiley \& Sons, Inc., 1966.
+
+\bibitem{Lane:1971ys}
+Sanders~Mac Lane.
+\newblock {\em Categories for the working mathematician}.
+\newblock Springer-Verlag, 1971.
+
+\bibitem{Lubotzky:1994ve}
+Alexander Lubotzky.
+\newblock {\em Discrete groups, expanding graphs and invariant measures},
+  volume 125 of {\em Progress in Mathematics}.
+\newblock Birkh\"auser Verlag, Basel, 1994.
+\newblock With an appendix by Jonathan D. Rogawski.
+
+\bibitem{Nicholas-Pippenger:1987eu}
+Nicholas Pippenger.
+\newblock Sorting and selecting in rounds.
+\newblock {\em SIAM Journal on Computing}, 16(6):1032--1038, Dec 1987.
+
+\bibitem{Pippenger:1982nx}
+Nicholas Pippenger and Andrew~C. Yao.
+\newblock Rearrangeable networks with limited depth.
+\newblock {\em SIAM Journal of Algebraic and Discrete Methods}, 3:411--417,
+  1982.
+
+\bibitem{Reingold:2002ys}
+Omer Reingold, Salil Vadhan, and Avi Widgerson.
+\newblock Entropy waves, the zig-zag graph product, and new constant-degree
+  expanders.
+\newblock {\em Annals of Mathmatics}, 155:157--187, 2002.
+
+\bibitem{Serre:1980}
+Jean-Pierre Serre.
+\newblock {\em Trees}.
+\newblock Springer-Verlag, 1980.
+
+\bibitem{Valiant:1977dq}
+Tatrabska Lomnica.
+\newblock {\em Graph-theoretic arguments in low level complexity}, volume~53 of
+  {\em Lecture Notes in Computer Science}. Springer, 1977.
+
+\bibitem{Urquhart:1987cr}
+Alasdair Urquhart.
+\newblock Hard examples for resolution.
+\newblock {\em Journal of the Association for Computing Machinery},
+  34(1):209--219, 1987.
+
+\end{thebibliography}

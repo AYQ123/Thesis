@@ -1,0 +1,321 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage{beamerthemeWarsaw}
+\usepackage{beamerthemesplit}
+
+\title{An Brief Introduction to the Zig-Zag Graph Product	}
+\author{David Monarres \\ monarres@rohan.sdsu.edu}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%\section[Outline]{}
+
+\section{Introduction and Definitions}
+\subsection{Families of Expanding Graphs}
+\frame
+{
+  \frametitle{Definition of Expanding Families}
+\uncover<1->{\begin{definition}
+Let $G$ be a graph with $|V(G)| < \infty$. The \alert{isoperimetric constant}, or \alert{expanding constant} of a graph $G$, is  $$h(G) = \inf\left\{  \frac{| \partial F|}{|F|} :  F \subseteq V(G) , 0 < |F|< \frac{n}{2}  \right\} $$
+\end{definition}}
+\uncover<2->{
+\begin{definition}
+Let $\mathcal{G} = \left( G_n \right)_{n \in \mathbb{N} } $ be a family of finite, connected, $k$-regular graphs with $|V(G_n)|  \rightarrow \infty$ as $n \rightarrow \infty$. We say that $\mathcal{G}$ is a \alert{family of expanders} if $$ \lim_{n\rightarrow \infty} h(G_n) > 0 $$
+
+\end{definition}
+}
+}
+\frame
+{
+\frametitle{Family of graphs and the expanding constant}
+\framesubtitle{An extreme case}
+
+\begin{columns}[c] 
+
+\begin{column}{5cm} 
+\includegraphics[scale=.40]{cyclegraph.png}
+
+\end{column} 
+\begin{column}{5cm} 
+
+\uncover<1->{
+\begin{Example}
+Let $\mathcal{G} = (G_n)_{n \in \mathbb{N}}$ where $G_n$ is the cycle graph on $n$ verticies. 
+\begin{itemize}
+\item<2-> By choosing our $n/2$ vertices adjacent we can show that $$ h(G_n) \leq \frac{1}{n} $$
+\item<3-> Which clearly goes to zero as $n\rightarrow \infty$
+\end{itemize}
+
+\end{Example} 
+}
+\end{column} 
+\end{columns}
+
+
+}
+\frame
+{
+\frametitle{Family of graphs and expanding constant}
+\framesubtitle{The other extreme}
+
+\begin{columns}[c] 
+
+\begin{column}{5cm} 
+\includegraphics[scale=.40]{completegraph.png}
+
+\end{column} 
+\begin{column}{5cm} 
+
+\uncover<1->{
+\begin{Example}
+Let $\mathcal{G} = (K_n)_{n \in \mathbb{N}}$ where $K_n$ is the complete graph on $n$ verticies. 
+\begin{itemize}
+\item<2-> It can be shown that for all $F \subseteq V(K)$ that $ h(K_n) \leq (n-|F|) $
+\item<3-> Thus we can show that $$ h(K_n) = \left\lfloor \frac{n}{2} \right\rfloor $$
+\end{itemize}
+
+\end{Example} 
+}
+\end{column} 
+\end{columns}
+
+
+}
+
+
+\frame[c]
+{
+\frametitle{Family of graphs and expanding constant}
+The \alert{expanding constant}, $h(G)$ , is a measure of the connectedness of the graph. In the previous examples we had the two most extreme cases. 
+\begin{itemize}
+\item<2-> $h(G_n) \rightarrow 0$ as $n \rightarrow \infty$ when we were considering the family of cycle graphs.
+\uncover<4->{ 
+\begin{itemize}
+\item No new connections are made as the new vertices are added.
+\end{itemize}
+}
+\item<3-> $h(K_n) \rightarrow \infty$ as $n \rightarrow \infty$ when we were considering the family of complete graphs.
+\uncover<5->{ 
+\begin{itemize}
+\item We can always create more connections by increasing the degree of the graph
+\end{itemize}
+}
+\end{itemize}
+}
+\subsection{Eigenvalues and the expanding constant}
+\frame[t]
+{
+\frametitle{Eigenvalues and expansion}
+Let $G$ be a connected, $k$-regular, undirected graph and $A_G$ be it's adjacency matrix
+\begin{itemize}
+\item<2-> Since $G$ is undirected, $A_G$ is symmetric and real valued. So all of its eigenvalues are real valued. Order those eigenvalues as follows $$ \lambda_0 \geq \lambda_1 \geq \ldots \geq  \lambda_{n-1} \geq \lambda_n$$
+\item<3-> In a book by  Davidoff, et. al. \cite{Davidoff:2003uq} it is proven that $$ \frac{k - \lambda_1}{2} \leq h(G) \leq \sqrt{2k(k-\lambda_1) }$$
+\item<4-> Thus we can see that if $\lim_{n\rightarrow\infty} \lambda_1(G_n) < k$ then $\mathcal{G} = (G_n)_{n \in \mathbb{N}}$  is an expanding family.
+\end{itemize}
+
+}
+
+
+\section{The Zig- Zag Graph Product}
+\subsection{Introduction}
+\frame[c] 
+{
+\frametitle{Zig Zag graph product}
+The Zig Zag product, denoted $G_1 \times_z G_2$, (usually  $G_1$ is large and $G_2$ is small)  is a graph product where
+\begin{itemize}
+\item<2-> Inherits is size of the larger graph
+\item<3-> Inherits its degree from the smaller graph
+\item<4-> Inherits its expansion properties from both 
+\end{itemize}
+\uncover<5->{ 
+We will follow the construction of this product in the paper by Reingold, et. al. \cite{Reingold:2002fk}
+}
+
+}
+\subsection{Definitions and Constructions}
+\frame[t]
+{
+\frametitle{Rotation map}
+Let $G$ be a $k$-regular undirected graph with vertex set $V(G)$ and edge set $E(G)$.  Define the involution  called the \alert{Rotation map}, $$Rot_G: V(G) \times \{1, \ldots, k\} \rightarrow V(G) \times \{1, \ldots, k\}$$ 
+
+
+\begin{columns}[c] 
+
+\begin{column}{5cm} 
+\includegraphics[scale=.40]{rotexamp.png}
+
+\end{column} 
+\begin{column}{5cm} 
+
+\uncover<2->{
+\begin{Example}
+$G$ is a $2$-regular graph on 3 vertices  with 
+\begin{itemize}
+\item<3-> $Rot_G(u,2) = (v,1)$
+\item<4-> $Rot_G(u,1) = (w,2)$
+\item<5-> $Rot_G(v,2) = (w,1)$
+\end{itemize}
+\end{Example} 
+}
+\end{column} 
+\end{columns}
+
+}
+
+\frame[t]
+{
+\frametitle{Definition of the Zig Zag product}
+%\begin{Definition}
+%For $K \in \mathbb{N}$ define $ \left[K\right]  := \{1,2,\ldots, K\} $
+%\end{Definition}
+
+\begin{Definition}
+If $G_1$ is a $D_1$ regular graph on $ \left[N_1\right]$ with rotation map $Rot_{G_1}$ and $G_2$ is a $D_2$-regular graph on $\left[ D_1 \right]$ with rotation map $Rot_{G_2}$, then their \alert{zig-zag product}, denoted $G_1 \times_z G_2 $, os defined to be the $D_2^2$-regular graph on $\left[N_1 \right] \times \left[ D_1 \right] $ whose rotation map $Rot_{G_1 \times_z G_2}$ is as follows
+
+\vspace{\fill}
+
+\begin{block}<2->
+
+$Rot_{G_1 \times_z G_2}( (v,k), (i,j) ) $
+\begin{enumerate}
+\item<3-> Let $ ( k^\prime, i^\prime )  = Rot_{G_2}( k,i) $ (zig)
+\item<4-> Let $ (w, k^{\prime\prime}) = Rot_{G_1}(v, k\prime) $ (zag)
+\item<5-> Let $ (k^{(3)} , j^\prime) = Rot_{G_2}(k^{\prime\prime}, j)$ (zig-again)
+\item<6->  Output: $ ( ( w, k^{(3)}) , (i^\prime, j^\prime))$
+\end{enumerate}
+
+\end{block}
+
+\end{Definition}
+}
+
+\frame[c]
+{
+\frametitle{What does this do?}
+\only<1>{
+\begin{Definition}
+A \alert{$v$-cloud} is a graph on vertices $\{ v\}\times \left[ N_1\right] $ where vertex $(v,k)$ is adjacent to $(v, j)$ if there exists $i^\prime, j^\prime \in \left[ N_1\right]$ such that $Rot_{G_1}(k, k^\prime) = (j,j^\prime) $
+\end{Definition}
+}
+\only<2>{
+\begin{Example}
+\begin{columns}
+\column{5cm}
+\begin{figure}
+\includegraphics[scale=.40]{zigzagexamp.png}
+\caption{Graphs $G_1$ and $G_2$ with rotation maps}
+\end{figure}
+\column{5cm}
+\begin{figure}
+\includegraphics[scale=.40]{cloudexamp.png}
+\caption{Example of $u$-cloud}
+\end{figure}
+\end{columns}
+\end{Example}
+}
+
+}
+\frame[c]
+{
+\frametitle{Following the Rotation Map}
+
+\begin{columns}
+\column{5cm}
+\only<1>{
+\includegraphics[scale=.60]{diagram1.pdf}
+}
+\only<2>{
+\includegraphics[scale=.60]{diagram2.pdf}
+}
+\only<3>{
+\includegraphics[scale=.60]{diagram3.pdf}
+}
+\only<4>{
+\includegraphics[scale=.60]{diagram4.pdf}
+}
+
+\column{5cm}
+\begin{enumerate}
+\item<2->  Zig - Use  an edge of $G_2$ to transition to a  vertex in the same $v$-cloud
+\item<3-> Zag - Use an edge of $G_1$ to transition to a neighboring $v$-cloud
+\item<4-> Zig again- - Use  an edge of $G_2$ to transition to a  vertex in the neighboring $v$-cloud
+\end{enumerate}
+\end{columns}
+
+
+}
+\frame
+{
+\frametitle{Example: Computing adjacency}
+\begin{Example}
+\begin{columns}
+\column{5cm}
+\includegraphics[scale=.40]{zigzagexamp.png} 
+\column{5cm}
+\begin{itemize}
+\item<1->$(u,1)$ is adjacent to $(w,1), (w,3),  (x,2), (x,1)$ 
+\item<2-> $(x,2)$ is adjacent to $(u,3), (u,1),  (w,2), (w,1)$ 
+\end{itemize}
+
+\end{columns}
+
+\end{Example}
+}
+
+\frame
+{
+\frametitle{Main theorem}
+\begin{Definition}
+An undirected graph, $G$ is a $( N, D, \lambda)$ graph if 
+\begin{itemize}
+\item $G$ has $N$ vertices
+\item $G$ is $D$-regular
+\item  $\lambda_1 (A_G) < \lambda$ where $\lambda_1(A_G)$ is the second largest eigenvalue of adjacency matrix of $G$,  $A_G$
+\end{itemize}
+\end{Definition}
+\begin{Theorem}
+If $G_1$ is a $( N_1, D_1, \lambda_1)$ graph and $G_2$ is a $(D_1,D_2, \lambda_2)$ graph then $G_1 \times_z G_2 $ is a $( N_1 D_1, D_2^2, \lambda_1 + \lambda_2 + \lambda_2^2)$ graph. 
+\end{Theorem} 
+}
+
+\frame
+{
+\frametitle{Constructing an Expanding Family}
+
+Let  $H$ be a $\left( D^4 , D , 1/5 \right) $ graph. Then we can construct a constant degree \alert{expanding family} of graphs inductively as follows:
+
+\begin{itemize}
+\item<2-> $G_{0} = H$
+\item<3-> $G_{i+1} =  G_{i}^2 \times_z H$
+\end{itemize}
+
+
+
+\uncover<4-> 
+{
+\begin{Theorem}
+$G_{i}$ is a $ \left(D^{4i}, D^2, 2/5\right) $
+
+\end{Theorem} 
+}
+
+}
+
+
+
+
+
+\section{References}
+\frame[t]
+{
+\frametitle{References}
+
+\bibliography{Presentation}{}
+\bibliographystyle{plain}
+}
+\end{document}

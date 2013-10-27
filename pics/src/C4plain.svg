@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="487.18082"
+   height="419.17795"
+   viewBox="46 171 270.4034 234.23663"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="C4.svg">
+  <metadata
+     id="metadata40">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs38">
+    <filter
+       id="filter3017"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3019"
+         in="SourceAlpha"
+         stdDeviation="2"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix3021"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0 " />
+      <feOffset
+         id="feOffset3023"
+         in="bluralpha"
+         dx="4"
+         dy="4"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge3025">
+        <feMergeNode
+           id="feMergeNode3027"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode3029"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter
+       id="filter3031"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3033"
+         in="SourceAlpha"
+         stdDeviation="2"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix3035"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0 " />
+      <feOffset
+         id="feOffset3037"
+         in="bluralpha"
+         dx="4"
+         dy="4"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge3039">
+        <feMergeNode
+           id="feMergeNode3041"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode3043"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter
+       id="filter3045"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3047"
+         in="SourceAlpha"
+         stdDeviation="2"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix3049"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0 " />
+      <feOffset
+         id="feOffset3051"
+         in="bluralpha"
+         dx="4"
+         dy="4"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge3053">
+        <feMergeNode
+           id="feMergeNode3055"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode3057"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter
+       id="filter3059"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3061"
+         in="SourceAlpha"
+         stdDeviation="2"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix3063"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0 " />
+      <feOffset
+         id="feOffset3065"
+         in="bluralpha"
+         dx="4"
+         dy="4"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge3067">
+        <feMergeNode
+           id="feMergeNode3069"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode3071"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       id="filter7136"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25">
+      <feGaussianBlur
+         id="feGaussianBlur7138"
+         in="SourceAlpha"
+         stdDeviation="1"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix7140"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0 " />
+      <feOffset
+         id="feOffset7142"
+         in="bluralpha"
+         dx="2"
+         dy="2"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge7144">
+        <feMergeNode
+           id="feMergeNode7146"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode7148"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="871"
+     inkscape:window-height="668"
+     id="namedview36"
+     showgrid="false"
+     inkscape:zoom="0.96737735"
+     inkscape:cx="104.95659"
+     inkscape:cy="221.3839"
+     inkscape:window-x="295"
+     inkscape:window-y="26"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer3"
+     fit-margin-top="2"
+     fit-margin-left="2"
+     fit-margin-right="2"
+     fit-margin-bottom="2"
+     inkscape:snap-object-midpoints="true" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="graph"
+     style="display:inline">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 82.788563,366.21392 78.870041,55.554572 405.98559,53.619994 l 0.0381,311.937696 z"
+       id="path3082"
+       inkscape:connector-curvature="0"
+       transform="matrix(0.55879998,0,0,0.55879998,45.083384,171)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 1.6825726e-7,0 0,0"
+       id="path3081"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="3"
+       inkscape:connection-start="#g16"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g22"
+       inkscape:connection-end-point="d4"
+       transform="matrix(0.55879998,0,0,0.55879998,45.083384,171)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 1.6825726e-7,0 0,0"
+       id="path3085"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="3"
+       inkscape:connection-start="#g4"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#g22"
+       inkscape:connection-end-point="d4"
+       transform="matrix(0.55879998,0,0,0.55879998,45.083384,171)" />
+    <g
+       transform="translate(6.8376384,-6.0744212)"
+       style="display:inline"
+       id="g3963">
+      <g
+         transform="translate(16.318323,17.118315)"
+         style="filter:url(#filter3059)"
+         id="g10">
+        <ellipse
+           d="m 84,191 c 0,9.94113 -8.058875,18 -18,18 -9.941125,0 -18,-8.05887 -18,-18 0,-9.94113 8.058875,-18 18,-18 9.941125,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="191"
+           sodipodi:cx="66"
+           id="ellipse12"
+           ry="18"
+           rx="18"
+           cy="191"
+           cx="66"
+           style="fill:#add8e6" />
+        <ellipse
+           d="m 84,191 c 0,9.94113 -8.058875,18 -18,18 -9.941125,0 -18,-8.05887 -18,-18 0,-9.94113 8.058875,-18 18,-18 9.941125,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="191"
+           sodipodi:cx="66"
+           id="ellipse14"
+           ry="18"
+           rx="18"
+           cy="191"
+           cx="66"
+           style="fill:none;stroke:#000000;stroke-width:2" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3862"
+         y="216.26567"
+         x="75.01136"
+         style="font-size:22.35199928px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="216.26567"
+           x="75.01136"
+           id="tspan3864"
+           sodipodi:role="line">1</tspan></text>
+    </g>
+    <g
+       id="g4038"
+       transform="translate(-8.3702006,-7.1554636)">
+      <g
+         transform="translate(16.318323,17.118315)"
+         style="filter:url(#filter3045)"
+         id="g16">
+        <ellipse
+           d="m 282,191 c 0,9.94113 -8.05887,18 -18,18 -9.94113,0 -18,-8.05887 -18,-18 0,-9.94113 8.05887,-18 18,-18 9.94113,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="191"
+           sodipodi:cx="264"
+           id="ellipse18"
+           ry="18"
+           rx="18"
+           cy="191"
+           cx="264"
+           style="fill:#add8e6" />
+        <ellipse
+           d="m 282,191 c 0,9.94113 -8.05887,18 -18,18 -9.94113,0 -18,-8.05887 -18,-18 0,-9.94113 8.05887,-18 18,-18 9.94113,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="191"
+           sodipodi:cx="264"
+           id="ellipse20"
+           ry="18"
+           rx="18"
+           cy="191"
+           cx="264"
+           style="fill:none;stroke:#000000;stroke-width:2" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3866"
+         y="216.41301"
+         x="273.50793"
+         style="font-size:22.35199928px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"
+         transform="translate(-1.8200573e-8,2.4273827e-6)"><tspan
+           y="216.41301"
+           x="273.50793"
+           id="tspan3868"
+           sodipodi:role="line">2</tspan></text>
+    </g>
+    <g
+       id="g4045"
+       transform="translate(-8.3489264,7.155313)">
+      <g
+         transform="translate(16.318323,17.118315)"
+         style="filter:url(#filter3031)"
+         id="g22">
+        <ellipse
+           d="m 282,351 c 0,9.94113 -8.05887,18 -18,18 -9.94113,0 -18,-8.05887 -18,-18 0,-9.94113 8.05887,-18 18,-18 9.94113,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="351"
+           sodipodi:cx="264"
+           id="ellipse24"
+           ry="18"
+           rx="18"
+           cy="351"
+           cx="264"
+           style="fill:#add8e6" />
+        <ellipse
+           d="m 282,351 c 0,9.94113 -8.05887,18 -18,18 -9.94113,0 -18,-8.05887 -18,-18 0,-9.94113 8.05887,-18 18,-18 9.94113,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="351"
+           sodipodi:cx="264"
+           id="ellipse26"
+           ry="18"
+           rx="18"
+           cy="351"
+           cx="264"
+           style="fill:none;stroke:#000000;stroke-width:2" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3870"
+         y="376.25476"
+         x="273.25146"
+         style="font-size:22.35199928px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"
+         transform="translate(-1.8200573e-8,2.4273827e-6)"><tspan
+           y="376.25476"
+           x="273.25146"
+           id="tspan3872"
+           sodipodi:role="line">3</tspan></text>
+    </g>
+    <g
+       id="g4052"
+       transform="translate(9.0273088,7.5220153)">
+      <g
+         transform="translate(16.318323,17.118315)"
+         style="filter:url(#filter3017)"
+         id="g4">
+        <ellipse
+           d="m 84,351 c 0,9.94113 -8.058875,18 -18,18 -9.941125,0 -18,-8.05887 -18,-18 0,-9.94113 8.058875,-18 18,-18 9.941125,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="351"
+           sodipodi:cx="66"
+           id="ellipse6"
+           ry="18"
+           rx="18"
+           cy="351"
+           cx="66"
+           style="fill:#add8e6" />
+        <ellipse
+           d="m 84,351 c 0,9.94113 -8.058875,18 -18,18 -9.941125,0 -18,-8.05887 -18,-18 0,-9.94113 8.058875,-18 18,-18 9.941125,0 18,8.05887 18,18 z"
+           sodipodi:ry="18"
+           sodipodi:rx="18"
+           sodipodi:cy="351"
+           sodipodi:cx="66"
+           id="ellipse8"
+           ry="18"
+           rx="18"
+           cy="351"
+           cx="66"
+           style="fill:none;stroke:#000000;stroke-width:2" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3858"
+         y="376.25476"
+         x="75.213272"
+         style="font-size:22.35199928px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"
+         transform="translate(-1.8200573e-8,2.4273827e-6)"><tspan
+           y="376.25476"
+           x="75.213272"
+           id="tspan3860"
+           sodipodi:role="line">0</tspan></text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="enumeration"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="127.47386"
+       y="66.645424"
+       id="text3909"
+       sodipodi:linespacing="125%"
+       transform="matrix(0.55879998,0,0,0.55879998,45.083384,171)"><tspan
+         sodipodi:role="line"
+         id="tspan3911"
+         x="127.47386"
+         y="66.645424" /></text>
+  </g>
+</svg>

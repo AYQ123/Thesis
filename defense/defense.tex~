@@ -1,0 +1,196 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+% \usepackage{beamerthemeWarsaw}
+\usetheme[height=7mm]{Rochester}
+%\usepackage{beamerthemesplit}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+% Loading of sagetex for my inline sage code
+\usepackage{sagetex}
+
+% Options and loading of xypic for diagrams
+\usepackage[all]{xy}
+\SelectTips{cm}{}
+%\CompileMatrices
+\entrymodifiers={+!!<0pt,\fontdimen22\textfont2>}
+
+
+% Define special graph operators
+
+\newcommand{\zigzag}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm z}\hspace{.25em}}}}
+\newcommand{\sandwich}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm s}\hspace{.25em}}}}
+\newcommand{\concat}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm c}\hspace{.25em}}}}
+\newcommand{\zig}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm i}\hspace{.25em}}}}
+\newcommand{\zag}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm a}\hspace{.25em}}}}
+\newcommand{\replacement}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.65em}{\rm r}}\hspace{.35em}}}
+
+
+
+
+
+% Other useful packages for theses (see LaTeX docs for descriptions of these)
+%\usepackage{varioref} % for the \vref commands that also prints out the reference page
+%\usepackage{alltt} % for including computer code
+
+\usepackage{url} % for the \url{http://foo.com} command to include url's (or filenames)
+%\usepackage{longtable} % For multi page tables
+
+% The style of theorems and such that you want to use.  You can change the
+% style by modifying the second argument (for example prepending '\sc ' as
+% in {\sc Theorem} which will make the headings come out as small caps rather
+% then bold)
+
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{proposition}[theorem]{Proposition}
+
+% \theoremstyle{definition}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{example}[theorem]{Example}
+
+% \theoremstyle{remark}
+% \newtheorem{remark}[theorem]{Remark}
+
+
+% Declaring Math operators that are used in the paper
+\DeclareMathOperator{\Set}{\mathrm{\mathbf{Set}}}
+\DeclareMathOperator{\Top}{\mathrm{\mathbf{Top}}}
+\DeclareMathOperator{\Net}{\mathrm{\mathbf{Net}}}
+\DeclareMathOperator{\SymNet}{\mathbf{SymNet}}
+\DeclareMathOperator{\Grp}{\mathbf{Grp}}
+\DeclareMathOperator{\Isop}{\mathrm{i}}
+\DeclareMathOperator{\Aut}{\mathrm{Aut}}
+\DeclareMathOperator{\id}{\mathrm{id}}
+\DeclareMathOperator{\inv}{\mathrm{inv}}
+\DeclareMathOperator{\Act}{\mathrm{\phi}}
+\DeclareMathOperator{\Orb}{\mathrm{\Phi}}
+\DeclareMathOperator{\Stab}{\mathrm{stab}}
+\DeclareMathOperator{\CG}{\mathrm{C}}
+\DeclareMathOperator{\Term}{\mathbf{\tau}}
+\DeclareMathOperator{\Source}{\mathbf{\varsigma}}
+\DeclareMathOperator{\Rot}{\mathbf{\varrho}}
+
+\DeclareMathOperator{\enum}{\eta}
+\DeclareMathOperator{\Enum}{\mathcal{E}}
+\DeclareMathOperator{\EnumSet}{\mathbf{E}}
+
+\DeclareMathOperator{\ppath}{\mathit{p}}
+\DeclareMathOperator{\cpath}{\mathit{c}}
+\DeclareMathOperator{\pcd}{\mathcal{D}}
+\DeclareMathOperator{\pcdSet}{\mathbf{P}}
+
+
+\DeclareMathOperator{\trellis}{\mathbb{T}}
+
+
+
+
+
+%% Group action macros
+
+\newcommand{\acts}[2]{\ensuremath{#1 \cdot #2}}
+\newcommand{\orbit}[2]{ \ensuremath{\Orb_{#1}\left(#2 \right)}}
+\newcommand{\stab}[2]{\ensuremath{\Stab_{#1}\left(#2 \right)}} 
+\newcommand{\card}[1]{\ensuremath{\left\vert #1 \right\vert}}
+\newcommand{\cg}[2]{\ensuremath{\CG(#1,#2)}}
+\newcommand{\cn}[2]{\ensuremath{\CG(#1,#2)}}
+
+
+
+\newcommand{\rot}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\source}[1]{\ensuremath{\Source\left(#1\right)}}
+\newcommand{\term}[1]{\ensuremath{\Term\left(#1\right)}}
+
+
+\newcommand{\edgeS}[1]{\ensuremath{\mathrm{E}(#1) }}
+\newcommand{\edgeSet}[1]{\ensuremath{\mathrm{E}\left( #1 \right)}}
+
+
+\newcommand{\edgeG}{\ensuremath{\mathrm{E}}}
+\newcommand{\edgeH}{\ensuremath{\mathrm{F}}}
+
+
+
+\newcommand{\vertS}[1]{\ensuremath{\mathrm{V}(#1)}}
+\newcommand{\vertG}{\ensuremath{\mathrm{V}}}
+\newcommand{\vertH}{\ensuremath{\mathrm{W}}}
+
+\newcommand{\symnet}[3]{\ensuremath{ #1: \left( \rot{#2} , #3 \right)}}
+\newcommand{\net}[3]{\ensuremath{#1:\left(#2,#3\right)}}
+
+
+
+
+\title{EXPANDING FAMILIES, AND THE ZIG-ZAG AND REPLACEMENT PRODUCT}
+\author{David Monarres \\ dmmonarres@gmail.com}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Introduction}
+
+\subsection{Background}
+
+
+\subsection{Measuring Expansion} 
+
+\frame{      }
+
+
+\section{The Replacement and Zig-Zag Products}
+
+\subsection{Enumerations}
+
+\frame{       }
+\subsection{The Replacement Product}
+
+\subsection{The Zig-Zag Product}
+
+\subsection{Relationships}
+
+
+\section{Classification of $K_5 \protect \replacement C_4$ and $K_5 \protect \zigzag C_4$}
+
+\subsection{Parity Circuits and PCDs}
+
+\frame{}
+
+\subsection{Counting  PCDs}
+
+\subsection{Classifying  PCDs}
+
+\subsection{PCDs, and $K_5 \replacement C_4$ and $K_5 \zigzag C_4$}
+
+\section{Further Topics}
+
+\subsection{A New (and old) way to define a graph}
+
+\frame{}
+
+\subsection{The Sandwich Product}
+
+\subsection{A Zig-Zag Sandwich}
+
+\section{Conclusion}
+
+
+\section{References}
+\frame[t]
+{
+\frametitle{References}
+
+\bibliography{../thesis}{}
+\bibliographystyle{plain}
+}
+\end{document}

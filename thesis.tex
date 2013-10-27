@@ -1,0 +1,330 @@
+%
+% Example SDSU Mathematics LaTeX Thesis.
+% Lines beginning with % are comments and are ignored.
+%
+% The class file sdsu-thesis.cls must be in the current directory or installed
+% with the other classes as per standard LaTeX installation.
+%
+% To generate run these commands:
+%   latex thesis
+%   bibtex thesis
+%   latex thesis
+%   latex thesis
+% Then you need to use the dvips command to get postscript output
+%
+% See the README file for more information
+%
+\documentclass{sdsu-thesis}
+\synctex=1
+% \usepackage[singlelinecheck=false]{caption}
+\usepackage{afterpage}
+
+%
+% For early printouts to save paper use the savepaper option as
+%\documentclass[savepaper]{sdsu-thesis}
+% This will make things single spaced, use small font and smaller margins.
+% Stuff will be formatted differently if you don't use this option but it's
+% useful to basically see (read) what you typed so far on paper without
+% wasting much paper.  You might want to also comment out the front matter
+% and backmatter if printing out in savepaper mode to save paper there.
+% Do not use this option on your final printout as it doesn't satisfy the
+% thesis manual requirements.
+
+% Also if you want to use double spacing rather then singlespacing (if your
+% thesis is very short, say 25 pages or less), then use
+% the `doublespace' option as
+%\documentclass[doublespace]{sdsu-thesis}
+% For pictures, include these
+%\usepackage{epic}
+%\usepackage{eepic}
+%\usepackage{color}
+\usepackage{graphics}
+% \usepackage{subfig}
+
+% Picture Directory
+
+\graphicspath{{pics/}}
+
+% Loading of sagetex for my inline sage code
+\usepackage{sagetex}
+
+% Options and loading of xypic for diagrams
+\usepackage[all]{xy}
+\SelectTips{cm}{}
+%\CompileMatrices
+\entrymodifiers={+!!<0pt,\fontdimen22\textfont2>}
+
+
+% For including encapsulated postscript figures use
+%\usepackage{epsfig}
+%\usepackage{graphics}
+
+
+% Since this is a math thesis, you quite likely want these:
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+
+% For non sage code typesetting
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+
+% Define special graph operators
+
+\newcommand{\zigzag}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm z}\hspace{.25em}}}}
+\newcommand{\sandwich}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm s}\hspace{.25em}}}}
+\newcommand{\concat}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm c}\hspace{.25em}}}}
+\newcommand{\zig}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm i}\hspace{.25em}}}}
+\newcommand{\zag}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.75em}{\rm a}\hspace{.25em}}}}
+\newcommand{\replacement}{\mathbin{\raisebox{.2ex}{
+      \hspace{-.4em}$\bigcirc$\hspace{-.65em}{\rm r}}\hspace{.35em}}}
+
+
+
+
+
+% Other useful packages for theses (see LaTeX docs for descriptions of these)
+%\usepackage{varioref} % for the \vref commands that also prints out the reference page
+%\usepackage{alltt} % for including computer code
+
+\usepackage{url} % for the \url{http://foo.com} command to include url's (or filenames)
+%\usepackage{longtable} % For multi page tables
+
+% The style of theorems and such that you want to use.  You can change the
+% style by modifying the second argument (for example prepending '\sc ' as
+% in {\sc Theorem} which will make the headings come out as small caps rather
+% then bold)
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+
+% Declaring Math operators that are used in the paper
+\DeclareMathOperator{\Set}{\mathrm{\mathbf{Set}}}
+\DeclareMathOperator{\Top}{\mathrm{\mathbf{Top}}}
+\DeclareMathOperator{\Net}{\mathrm{\mathbf{Net}}}
+\DeclareMathOperator{\SymNet}{\mathbf{SymNet}}
+\DeclareMathOperator{\Grp}{\mathbf{Grp}}
+\DeclareMathOperator{\Isop}{\mathrm{i}}
+\DeclareMathOperator{\Aut}{\mathrm{Aut}}
+\DeclareMathOperator{\id}{\mathrm{id}}
+\DeclareMathOperator{\inv}{\mathrm{inv}}
+\DeclareMathOperator{\Act}{\mathrm{\phi}}
+\DeclareMathOperator{\Orb}{\mathrm{\Phi}}
+\DeclareMathOperator{\Stab}{\mathrm{stab}}
+\DeclareMathOperator{\CG}{\mathrm{C}}
+\DeclareMathOperator{\Term}{\mathbf{\tau}}
+\DeclareMathOperator{\Source}{\mathbf{\varsigma}}
+\DeclareMathOperator{\Rot}{\mathbf{\varrho}}
+
+\DeclareMathOperator{\enum}{\eta}
+\DeclareMathOperator{\Enum}{\mathcal{E}}
+\DeclareMathOperator{\EnumSet}{\mathbf{E}}
+
+\DeclareMathOperator{\ppath}{\mathit{p}}
+\DeclareMathOperator{\cpath}{\mathit{c}}
+\DeclareMathOperator{\pcd}{\mathcal{D}}
+\DeclareMathOperator{\pcdSet}{\mathbf{P}}
+
+
+\DeclareMathOperator{\trellis}{\mathbb{T}}
+
+
+
+
+%% Group action macros
+
+\newcommand{\acts}[2]{\ensuremath{#1 \cdot #2}}
+\newcommand{\orbit}[2]{ \ensuremath{\Orb_{#1}\left(#2 \right)}}
+\newcommand{\stab}[2]{\ensuremath{\Stab_{#1}\left(#2 \right)}} 
+\newcommand{\card}[1]{\ensuremath{\left\vert #1 \right\vert}}
+\newcommand{\cg}[2]{\ensuremath{\CG(#1,#2)}}
+\newcommand{\cn}[2]{\ensuremath{\CG(#1,#2)}}
+
+
+
+\newcommand{\rot}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\source}[1]{\ensuremath{\Source\left(#1\right)}}
+\newcommand{\term}[1]{\ensuremath{\Term\left(#1\right)}}
+
+
+\newcommand{\edgeS}[1]{\ensuremath{\mathrm{E}(#1) }}
+\newcommand{\edgeSet}[1]{\ensuremath{\mathrm{E}\left( #1 \right)}}
+
+
+\newcommand{\edgeG}{\ensuremath{\mathrm{E}}}
+\newcommand{\edgeH}{\ensuremath{\mathrm{F}}}
+
+
+
+\newcommand{\vertS}[1]{\ensuremath{\mathrm{V}(#1)}}
+\newcommand{\vertG}{\ensuremath{\mathrm{V}}}
+\newcommand{\vertH}{\ensuremath{\mathrm{W}}}
+
+\newcommand{\symnet}[3]{\ensuremath{ #1: \left( \rot{#2} , #3 \right)}}
+\newcommand{\net}[3]{\ensuremath{#1:\left(#2,#3\right)}}
+
+\renewcommand{\arraystretch}{1.5}
+
+% Author name and the author name in upper case
+\author{David M. Monarres} 
+
+% Title of the thesis (all in upper case), use \\ for line breaks
+% as usual, you can use up to 4 lines and make sure to set the
+% counter titlelines to the number of lines you used.
+% This is for the title page
+
+\title{EXPANDING FAMILIES, AND THE ZIG-ZAG AND REPLACEMENT PRODUCTS}
+% Number of lines in the title, without setting this the title page
+% will not be formatted properly
+
+\setcounter{titlelines}{1}
+
+% Heading style title, the number of lines can be different here then in
+% titlelines and in fact the thesis manual requires that this be at most
+% 3 lines long so only put at most 2 pagebreaks here.  This is for
+% the abstract pages and the signature page.
+\titleheading{Expanding Families, and the Zig-Zag and Replacement Products}
+
+% Degree
+\degree{Master of Arts}
+% 'Mathematics' for pure maths, and 'Applied Mathematics' for applied
+\degreein{Mathematics}
+
+% If you need to change the word 'Thesis' use \thesisname{Blah} and
+% if you need to change the middle line between \degree and \degreein
+% on the titlepage to something other then 'in' use \inofand{of} to
+% use 'of' for instace
+
+% Dates
+\gradyear{2011}
+\submitdate{Summer 2011}
+
+% Your committee chair (don't include titles as per the manual)
+\committeechair{Dr. Michael O'Sullivan}
+\committeechairdept{Department of Mathematics and Statistics}
+
+% Second committee member
+\committeesecond{Dr. Carmelo Interlando}
+\committeeseconddept{Department of Mathematics and Statistics}
+
+% Third (usually different department) committee member
+\committeethird{Dr. Jean Mark Gawron}
+\committeethirddept{Department of Linguistics and Asian/Middle Eastern Languages}
+
+% Fourth is optional
+%\committeefourth{Some Other Person}
+%\committeefourthdept{Department of Otherness}
+
+\begin{document}
+
+% Title page (mandatory for SDSU thesis)
+\maketitle
+
+% Signature page (mandatory for SDSU thesis)
+\makesignature
+
+% If you want a copyright page, give the year and name
+% It will be centered vertically and horizontally
+% This seems to be mandatory in the revision 11 of the
+% SDSU thesis style
+\begin{copyrightpage}
+Copyright\  \copyright\  2011 \\
+by \\
+David M. Monarres
+\end{copyrightpage}
+
+% Dedication (make sure to format this correctly
+% including a vspace (say \vspace{3in} or using vfill)
+% to make it center on the page if desired, see
+% the thesis manual)
+% Or just delete this if you don't have a dedication
+\begin{dedication}
+\vspace{3in}
+\centering
+This work is dedicated in memory of my mother and father, may they both rest in peace. 
+\end{dedication}
+
+% Epigraph (make sure to format this correctly, it
+% will just be centered on the page, see the manual)
+% Or just delete this if you don't have an epigraph
+% \begin{epigraph}
+% We must know, we shall know.\\
+% \begin{flushright}
+% -- David Hilbert
+% \end{flushright}
+% \end{epigraph}
+
+% \begin{libraryabstract}
+% % This just inserts the the abstract.tex file
+% \input{abstract}
+% \end{libraryabstract}
+
+
+% Here type the abstract of your thesis.  This is mandatory for
+% the SDSU thesis style
+\begin{abstract}
+% This just inserts the the abstract.tex file
+\input{abstract}
+\end{abstract}
+
+% Table of contents (this is mandatory in the SDSU thesis style)
+\tableofcontents
+
+% If you don't want a list of tables page, delete or comment out
+% this line
+\listoftables
+
+% If you don't want a list of figures page, delete or comment out
+% this line
+\listoffigures
+
+% Your acknowledgments go here
+% Or just delete this if you don't have acknowledgments
+% (you should!)
+\begin{acknowledgements}
+I would like to thank my beautiful wife Laurie, whom without her patience and support this research would have not been possible. Also I would like to thank my thesis chair, Dr. Michael O'Sullivan, who's dedication and persistence is un-paralleled in the thesis advising community. Also I would like to thank my other committee members, Dr. Carmelo Interlando and Dr. Mark Gawron for the helpful comments and critiques. A portion of this work was supported by NSF CCF- Theoretical Foundations grant \#0635382. 
+\end{acknowledgements}
+
+% This includes each of the chapters separately
+
+% \input{intro}
+% \nput{zig-zag}
+% \input{K5zzC4-example}
+% \input{nets}
+
+\input{body}
+%
+% The bibliography page, must be between main body and appendices
+%
+% You must have thbib.bib file in the current directory 
+%
+\bibliographystyle{ieeetr}
+\bibliography{thesis}
+
+% This includes append.tex
+%\input{append}
+%
+% Make the library abstract page
+%
+
+\end{document}

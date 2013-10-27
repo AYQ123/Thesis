@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.07pt}
+\beamer@sectionintoc {1}{Measuring Expansion}{17}{1}{1}
+\beamer@sectionintoc {2}{Enumerations}{39}{2}{2}
+\beamer@sectionintoc {3}{The Replacement Product}{50}{2}{3}
+\beamer@sectionintoc {4}{The Zig-Zag Product}{63}{2}{4}
+\beamer@sectionintoc {5}{Parity Circuit Decompositions (PCDS)}{78}{3}{5}
+\beamer@sectionintoc {6}{Counting PCDs}{92}{3}{6}
+\beamer@sectionintoc {7}{Classifying PCDs}{102}{3}{7}
+\beamer@sectionintoc {8}{PCDs, $K_5 \replacement C_4$ and $K_5 \zigzag C_4$}{116}{3}{8}
+\beamer@sectionintoc {9}{A New (and old) way to define a graph}{129}{4}{9}
+\beamer@sectionintoc {10}{The Sandwich Product}{131}{4}{10}
+\beamer@sectionintoc {11}{A Zig-Zag Sandwich}{135}{4}{11}
